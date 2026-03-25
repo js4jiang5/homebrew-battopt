@@ -19,7 +19,7 @@ cask "battopt" do
                    sudo: true
 
     system_command "open",
-                   args: ["-a", "BattOpt"],
+                   args: ["-a", "/Applications/BattOpt.app"],
                    print_stderr: false
   end
 
