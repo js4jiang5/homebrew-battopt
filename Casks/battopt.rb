@@ -18,14 +18,16 @@ cask "battopt" do
                    args: ["-rd", "com.apple.quarantine", "#{appdir}/BattOpt.app"],
                    sudo: true
 
-    system_command "#{appdir}/BattOpt.app/Contents/Resources/battopt",
-                   args: ["setup"], # Assuming your CLI has an install command
-                   sudo: true
+    system_command "open",
+                   args: ["-a", "BattOpt"],
+                   print_stderr: false
   end
 
   # This is the caveats block
   caveats <<~EOS
-    To use battopt CLI tool, you need to open a new terminal window.
+    BattOpt has been installed to /Applications. 
+    It should open automatically to complete setup.
+    If it doesn't, please launch it from your Applications folder.
   EOS
 
  uninstall_preflight do
