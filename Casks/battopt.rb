@@ -1,0 +1,53 @@
+#require_relative "../lib/github_private_strategy"
+
+cask "battopt" do
+  version "0.0.1"
+  sha256 "a78287e5d8583c85d6bbc16e48697017be4e1d3feebdf20d5e24d9e688d44add"
+
+  url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
+
+  name "BattOpt"
+  desc "Macbook battery Maintenance Utility with hybrid CLI and GUI interface"
+  homepage "https://github.com/js4jiang5/BattOpt"
+
+  app "BattOpt.app"
+
+  # This runs AFTER the app is moved to /Applications
+  postflight do
+	  system_command "xattr",
+                   args: ["-rd", "com.apple.quarantine", "#{appdir}/BattOpt.app"],
+                   sudo: true
+
+    system_command "#{appdir}/BattOpt.app/Contents/Resources/battopt",
+                   args: ["setup"], # Assuming your CLI has an install command
+                   sudo: true
+  end
+
+  # This is the caveats block
+  caveats <<~EOS
+    To use battopt CLI tool, you need to open a new terminal window.
+  EOS
+
+ uninstall_preflight do
+    # Define the system path where your setup command copied the binary
+    is_upgrade = ENV['HOMEBREW_COMMAND'] == 'upgrade'
+    args = ["uninstall", "--from-homebrew"]
+    args << "--is-upgrade" if is_upgrade
+    system_binary = "/Library/Application Support/battopt/battopt"
+
+    if File.exist?(system_binary)
+      system_command system_binary,
+                     args: args,
+                     sudo: true
+    end
+  end
+
+  # Minimalistic uninstall block
+  uninstall quit: "com.buddha-path.BattOpt"
+
+  zap trash: [
+    "~/Library/Application Support/BattOpt",
+    "~/Library/Caches/com.buddha-path.BattOpt",
+    "~/Library/Preferences/com.buddha-path.BattOpt.plist",
+  ]
+end
