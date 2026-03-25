@@ -2,7 +2,7 @@
 
 cask "battopt" do
   version "0.0.1"
-  sha256 "5ef238df3bc4758be23926cce90976143deb7b4e26b3b2c1a161c494d4dbf0f5"
+  sha256 "f34f5564318129f4fc9b18eb1bc4d12bc7d28425f2788bb8b72e2803e000a89e"
 
   url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
 
