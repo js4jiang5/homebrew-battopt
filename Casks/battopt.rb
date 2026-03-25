@@ -19,15 +19,17 @@ cask "battopt" do
                    sudo: true
 
     system_command "open",
-                   args: ["-a", "/Applications/BattOpt.app"],
+                   args: ["-a", "#{appdir}/BattOpt.app"],
                    print_stderr: false
   end
 
   # This is the caveats block
   caveats <<~EOS
-    BattOpt has been installed to /Applications. 
-    It should open automatically to complete setup.
-    If it doesn't, please launch it from your Applications folder.
+    Once installation completes, BattOpt will attempt to launch automatically 
+    to finalize setup. 
+    
+    If the app window does not appear, please launch it manually from:
+      #{appdir}/BattOpt.app
   EOS
 
  uninstall_preflight do
