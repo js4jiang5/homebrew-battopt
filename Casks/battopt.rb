@@ -2,7 +2,7 @@
 
 cask "battopt" do
   version "0.0.1"
-  sha256 "7452604f78bed73c50e1479e540686c3eeb8a776163e3c9036e9d2e4ba7582e4"
+  sha256 "327ff3deec991417cc7681fb7fcdfbe4b77cb34315d8e5186f3a7cb87699b403"
 
   url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
 
@@ -42,7 +42,7 @@ cask "battopt" do
     if File.exist?(system_binary)
       system_command system_binary,
                      args: args,
-                     sudo: true
+                     sudo: false
     end
   end
 
