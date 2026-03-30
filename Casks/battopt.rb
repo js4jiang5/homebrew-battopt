@@ -2,10 +2,11 @@
 
 cask "battopt" do
   version "0.0.3"
-  sha256 "10d6169b0f582705513464842c07d121a4a26a5e710bec881e88baf46377c844"
+  sha256 "bdf2d9a777f4306224576279d56d1b4f79778bd4899b7422f94f8de0e241b0cf"
 
   url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
 
+  
   name "BattOpt"
   desc "Macbook battery Maintenance Utility with hybrid CLI and GUI interface"
   homepage "https://github.com/js4jiang5/BattOpt"
@@ -14,44 +15,60 @@ cask "battopt" do
 
   # This runs AFTER the app is moved to /Applications
   postflight do
-	  system_command "xattr",
-                   args: ["-rd", "com.apple.quarantine", "#{appdir}/BattOpt.app"],
-                   sudo: true
+  system_command "xattr",
+                  args: ["-rd", "com.apple.quarantine", "#{appdir}/BattOpt.app"]
+  #                sudo: true
 
-    system_command "open",
-                   args: ["-a", "#{appdir}/BattOpt.app"],
-                   print_stderr: false
+  #system_command "open",
+  #                args: ["-a", "#{appdir}/BattOpt.app"],
+  #                print_stderr: false
   end
 
   # This is the caveats block
   caveats <<~EOS
-    Once installation completes, BattOpt will attempt to launch automatically 
-    to finalize setup. 
-    
-    If the app window does not appear, please launch it manually from:
-      #{appdir}/BattOpt.app
+    After installation, change the system settings below to receive notifications
+    1. System Settings > Battery > Battery Health > click the ⓘ icon > toggle off "Optimize Battery Charging"
+    2. System Settings > Notifications > enable "Allow notifications when mirroring or sharing"
+    3. System Settings > Notifications > Applications > Script Editor > Choose "Alerts"
   EOS
 
  uninstall_preflight do
-    # Define the system path where your setup command copied the binary
-    is_upgrade = ENV['HOMEBREW_COMMAND'] == 'upgrade'
-    args = ["uninstall", "--from-homebrew"]
-    args << "--is-upgrade" if is_upgrade
-    system_binary = "/Library/Application Support/battopt/battopt"
+    system_command "/usr/bin/pkill", 
+                   args: ["-TERM", "-f", "BattOpt"], 
+                   must_succeed: false
+                 
+    system_command "/usr/bin/pkill", 
+                   args: ["-TERM", "-f", "battopt monitor"], 
+                   must_succeed: false # 即使沒人在跑也不要報錯
+    
+    ## Define the system path where your setup command copied the binary
+    #system_binary = "/Library/Application Support/battopt/battopt"
+    #args = ["uninstall", "--from-homebrew"]
 
-    if File.exist?(system_binary)
-      system_command system_binary,
-                     args: args,
-                     sudo: false
-    end
+    #if File.exist?(system_binary)
+    #  system_command system_binary,
+    #                  args: args
+    #end
   end
 
-  # Minimalistic uninstall block
-  uninstall quit: "com.buddha-path.BattOpt"
+  ## Minimalistic uninstall block
+  #uninstall signal: [
+  #      ["TERM", "com.buddha-path.BattOpt"],
+  #]
 
-  zap trash: [
-    "~/Library/Application Support/BattOpt",
-    "~/Library/Caches/com.buddha-path.BattOpt",
-    "~/Library/Preferences/com.buddha-path.BattOpt.plist",
-  ]
+  zap launchctl: "com.battopt.daemon",
+      delete: [
+        "/Library/Application Support/battopt/battopt",
+        "/Library/Application Support/battopt/dictionary",
+        "/Library/Application Support/battopt/battopt.sock",
+        "/Library/LaunchDaemons/com.battopt.daemon.plist",
+        "/Library/Logs/battopt/battopt.log",
+        "/Library/Logs/DiagnosticReports/battopt*",
+        "/etc/paths.d/battopt",
+        "~/Library/LaunchAgents/com.battopt.BattOptGUI.plist",
+        "~/Library/Caches/com.buddha-path.BattOpt",
+        "~/Library/Preferences/com.buddha-path.BattOpt.plist",
+        "~/Library/HTTPStorages/com.buddha-path.BattOpt/",
+        "~/Library/Logs/DiagnosticReports/BattOpt*",
+      ]
 end
