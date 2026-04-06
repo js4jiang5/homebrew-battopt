@@ -2,11 +2,11 @@
 
 cask "battopt" do
   version "0.0.3"
-  sha256 "ce0a354da1db4634a189590c599a1d1cc9c36f22c58226849d417c62c36f373a"
+  sha256 "7f1b07db93f6031121401a95eb65c76e55984c7db00cab6490616327c790a827"
 
-  url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
+  #url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
+  url "file:///Users/jsjiang/Coding/SwiftUI/BattOpt/BattOpt_v0.0.3.dmg"
 
-  
   name "BattOpt"
   desc "Macbook battery Maintenance Utility with hybrid CLI and GUI interface"
   homepage "https://github.com/js4jiang5/BattOpt"
@@ -40,7 +40,7 @@ cask "battopt" do
     system_command "/usr/bin/pkill", 
                    args: ["-TERM", "-f", "battopt monitor"], 
                    must_succeed: false # 即使沒人在跑也不要報錯
-    
+                   
     ## Define the system path where your setup command copied the binary
     #system_binary = "/Library/Application Support/battopt/battopt"
     #args = ["uninstall", "--from-homebrew"]
