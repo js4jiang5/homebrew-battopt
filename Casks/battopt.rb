@@ -2,7 +2,7 @@
 
 cask "battopt" do
   version "0.0.3"
-  sha256 "52edc3de582cf5f2284a1cbe1166b4e2e3024bde21c98c1782ded88d74554c4a"
+  sha256 "ea1c09b9288c393604258bc0fff48207f31e907ac00f2f2df54d6a8b7bb4a7ed"
 
   #url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
   url "file:///Users/jsjiang/Coding/SwiftUI/BattOpt/BattOpt_v0.0.3.dmg"
