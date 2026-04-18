@@ -2,7 +2,7 @@
 
 cask "battopt" do
   version "1.0.0"
-  sha256 "1ec9b34c5c21ee07a7a274cb92b86598ddb982e551612b4b2b246c1664a57bb8"
+  sha256 "ae921cb555431f3ad5349bb7ae4706956622f40370eaf7d0861c1b78ece6840e"
 
   #url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
   url "file:///Users/jsjiang/Coding/SwiftUI/BattOpt/BattOpt_v0.0.3.dmg"
@@ -56,16 +56,16 @@ cask "battopt" do
   #      ["TERM", "com.buddha-path.BattOpt"],
   #]
 
-  zap launchctl: "com.battopt.daemon",
+  zap launchctl: "com.buddha-path.BattOpt.daemon",
       delete: [
         "/Library/Application Support/battopt/battopt",
         "/Library/Application Support/battopt/dictionary",
         "/Library/Application Support/battopt/battopt.sock",
-        "/Library/LaunchDaemons/com.battopt.daemon.plist",
+        "/Library/LaunchDaemons/com.buddha-path.BattOpt.daemon.plist",
         "/Library/Logs/battopt/battopt.log",
         "/Library/Logs/DiagnosticReports/battopt*",
         "/etc/paths.d/battopt",
-        "~/Library/LaunchAgents/com.battopt.BattOptGUI.plist",
+        "~/Library/LaunchAgents/com.buddha-path.BattOpt.GUI.plist",
         "~/Library/Caches/com.buddha-path.BattOpt",
         "~/Library/Preferences/com.buddha-path.BattOpt.plist",
         "~/Library/HTTPStorages/com.buddha-path.BattOpt/",
