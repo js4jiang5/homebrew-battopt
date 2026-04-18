@@ -4,8 +4,7 @@ cask "battopt" do
   version "1.0.0"
   sha256 "ae921cb555431f3ad5349bb7ae4706956622f40370eaf7d0861c1b78ece6840e"
 
-  #url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
-  url "file:///Users/jsjiang/Coding/SwiftUI/BattOpt/BattOpt_v0.0.3.dmg"
+  url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
 
   name "BattOpt"
   desc "Macbook battery Maintenance Utility with hybrid CLI and GUI interface"
@@ -17,11 +16,6 @@ cask "battopt" do
   postflight do
   system_command "xattr",
                   args: ["-rd", "com.apple.quarantine", "#{appdir}/BattOpt.app"]
-  #                sudo: true
-
-  #system_command "open",
-  #                args: ["-a", "#{appdir}/BattOpt.app"],
-  #                print_stderr: false
   end
 
   # This is the caveats block
@@ -39,22 +33,9 @@ cask "battopt" do
                  
     system_command "/usr/bin/pkill", 
                    args: ["-TERM", "-f", "battopt monitor"], 
-                   must_succeed: false # 即使沒人在跑也不要報錯
+                   must_succeed: false
                    
-    ## Define the system path where your setup command copied the binary
-    #system_binary = "/Library/Application Support/battopt/battopt"
-    #args = ["uninstall", "--from-homebrew"]
-
-    #if File.exist?(system_binary)
-    #  system_command system_binary,
-    #                  args: args
-    #end
   end
-
-  ## Minimalistic uninstall block
-  #uninstall signal: [
-  #      ["TERM", "com.buddha-path.BattOpt"],
-  #]
 
   zap launchctl: "com.buddha-path.BattOpt.daemon",
       delete: [
