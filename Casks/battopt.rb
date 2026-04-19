@@ -24,6 +24,7 @@ cask "battopt" do
     1. System Settings > Battery > Battery Health > click the ⓘ icon > toggle off "Optimize Battery Charging"
     2. System Settings > Notifications > enable "Allow notifications when mirroring or sharing"
     3. System Settings > Notifications > Applications > Script Editor > Choose "Alerts"
+    4. close and reopen Terminal for path to become effective
   EOS
 
  uninstall_preflight do
