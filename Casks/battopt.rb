@@ -1,8 +1,8 @@
 #require_relative "../lib/github_private_strategy"
 
 cask "battopt" do
-  version "1.0.7"
-  sha256 "5846cd298ef6f9bef29ae31bff0652ae764f4466e09306468de81eca602d3712"
+  version "1.0.8"
+  sha256 "f225a0340001c0c415c591656589ada8c5379e8f608d0f39357c2d5623968cf1"
 
   url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
 
