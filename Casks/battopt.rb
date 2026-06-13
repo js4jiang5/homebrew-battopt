@@ -1,8 +1,8 @@
 #require_relative "../lib/github_private_strategy"
 
 cask "battopt" do
-  version "1.1.3"
-  sha256 "3f152b54b47eb935babae454d8e354138d20312e79bea7efc7fb0366b54d4091"
+  version "1.1.4"
+  sha256 "028964c93968c4d92b6823afca0c9912596c3ae9200c1db75713c06cd2c7e293"
 
   url "https://github.com/js4jiang5/BattOpt/releases/download/v#{version}/BattOpt_v#{version}.dmg"
 
@@ -52,5 +52,6 @@ cask "battopt" do
         "~/Library/Preferences/com.buddha-path.BattOpt.plist",
         "~/Library/HTTPStorages/com.buddha-path.BattOpt/",
         "~/Library/Logs/DiagnosticReports/BattOpt*",
+        "~/Library/Logs/battopt/battopt_gui.log",
       ]
 end
