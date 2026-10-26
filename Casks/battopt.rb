@@ -13,9 +13,9 @@ cask "battopt" do
   app "BattOpt.app"
 
   # This runs AFTER the app is moved to /Applications
-  postflight do
-  system_command "xattr",
-                  args: ["-rd", "com.apple.quarantine", "#{appdir}/BattOpt.app"]
+  postflight_steps do
+    run "/usr/bin/xattr",
+        args: ["-rd", "com.apple.quarantine", "{{appdir}}/BattOpt.app"]
   end
 
   # This is the caveats block
@@ -27,15 +27,14 @@ cask "battopt" do
     4. close and reopen Terminal for path to become effective
   EOS
 
- uninstall_preflight do
-    system_command "/usr/bin/pkill", 
-                   args: ["-TERM", "-f", "BattOpt"], 
-                   must_succeed: false
-                 
-    system_command "/usr/bin/pkill", 
-                   args: ["-TERM", "-f", "battopt monitor"], 
-                   must_succeed: false
-                   
+  uninstall_preflight_steps do
+    run "/usr/bin/pkill",
+        args:         ["-TERM", "-f", "BattOpt"],
+        must_succeed: false
+
+    run "/usr/bin/pkill",
+        args:         ["-TERM", "-f", "battopt monitor"],
+        must_succeed: false
   end
 
   zap launchctl: "com.buddha-path.BattOpt.daemon",
